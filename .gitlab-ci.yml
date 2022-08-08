@@ -1,0 +1,19 @@
+stages:
+  - deploy
+
+variables:
+  WP_SITE_DIR: /var/www/html
+  WP_URL: 
+  WP_TITLE: Blog
+  WP_ADMIN_USER:
+  WP_ADMIN_PASS:
+  WP_ADMIN_EMAIL:
+  WP_THEME_NAME: astra
+
+deploy:
+  stage: deploy
+  script:
+    - cd $WP_SITE_DIR
+    - wp core install --url=$WP_URL --title=$WP_TITLE --admin_user=$WP_ADMIN_USER --admin_password=$WP_ADMIN_PASS --admin_email=$WP_ADMIN_PASS
+    - wp theme install $WP_THEME_NAME
+    - wp theme activate $WP_THEME_NAME
