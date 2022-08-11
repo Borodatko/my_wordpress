@@ -3,17 +3,21 @@ stages:
 
 variables:
   WP_SITE_DIR: /var/www/html
-  WP_URL: 
+  WP_URL:
   WP_TITLE: Blog
   WP_ADMIN_USER:
   WP_ADMIN_PASS:
   WP_ADMIN_EMAIL:
   WP_THEME_NAME: astra
+  WP_PLUGIN_URL: https://downloads.wordpress.org/plugin/wp-statistics.13.2.5.zip
+  WP_PLUGIN_NAME: wp-statistics
 
 deploy:
   stage: deploy
   script:
     - cd $WP_SITE_DIR
     - wp core install --url=$WP_URL --title=$WP_TITLE --admin_user=$WP_ADMIN_USER --admin_password=$WP_ADMIN_PASS --admin_email=$WP_ADMIN_EMAIL
+    - wp plugin install $WP_PLUGIN_URL
+    - wp plugin activate $WP_PLUGIN_NAME
     - wp theme install $WP_THEME_NAME
     - wp theme activate $WP_THEME_NAME
